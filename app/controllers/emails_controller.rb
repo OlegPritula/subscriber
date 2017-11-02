@@ -1,0 +1,18 @@
+class EmailsController < ApplicationController
+  def self.create(req)
+    if req.params.key?('email')
+      # YOUR CODE HERE
+      email = Email.new(req['email'])
+
+      if email.save
+        [201, { 'Content-Type' => 'text/html' }, ['You successfully subscribed!']]
+      else
+        [422, { 'Content-Type' => 'text/plain' }, ["Errors: + #{@errors}"'"]]
+      end
+
+    else
+      [403, { 'Content-Type' => 'text/plain' }, ['Missing param: email']]
+    end
+  end
+
+end
